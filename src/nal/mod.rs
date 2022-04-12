@@ -118,11 +118,14 @@ pub enum NalHeaderError {
 }
 impl NalHeader {
     pub fn new(header_value: u8) -> Result<NalHeader, NalHeaderError> {
-        if header_value & 0b1000_0000 != 0 {
-            Err(NalHeaderError::ForbiddenZeroBit)
-        } else {
-            Ok(NalHeader(header_value))
-        }
+        // The video streams we get does not honor forbidden zero bit so commenting out for now
+        // if header_value & 0b1000_0000 != 0 {
+        //     Err(NalHeaderError::ForbiddenZeroBit)
+        // } else {
+        //     Ok(NalHeader(header_value))
+        // }
+
+        Ok(NalHeader(header_value))
     }
 
     pub fn nal_ref_idc(self) -> u8 {
